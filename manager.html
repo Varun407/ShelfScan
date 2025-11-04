@@ -1,0 +1,74 @@
+<html>
+<head>
+  <title>Library Manager Dashboard</title>
+  <link rel="stylesheet" href="manager.css">
+</head>
+<body>
+  <header>
+    <button class="back-btn" onclick="window.location.href='index.html'"><p class="font2">Back</p></button>
+    <h1 class="font1">📚 Library Manager Dashboard</h1>
+  </header>
+
+  <nav class="tab-bar">
+    <button class="tab-button active" onclick="showSection('available')">Available Books</button>
+    <button class="tab-button" onclick="showSection('borrowed')">Borrowed Books</button>
+  </nav>
+
+  <main>
+    <section id="available" class="tab-section">
+      <div class="section-header">
+        <h2>Available Books</h2>
+        <input type="text" id="searchBook" placeholder="Search by book name or author" onkeyup="searchBooks()">
+      </div>
+
+      <div id="addBookForm" class="form-container hidden">
+        <input type="text" id="bookName" placeholder="Book Name">
+        <input type="text" id="bookAuthor" placeholder="Author">
+        <input type="text" id="bookGenre" placeholder="Genre">
+        <input type="text" id="bookShelf" placeholder="Shelf Number">
+        <input type="number" id="bookQty" placeholder="Quantity">
+        <button onclick="addBook()">Add</button>
+      </div>
+
+      <table id="booksTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Shelf</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section id="borrowed" class="tab-section hidden">
+      <div class="section-header">
+        <h2>Borrowed Books</h2>
+        <input type="text" id="searchBorrowed" placeholder="Search by book or student" onkeyup="searchBorrowedBooks()">
+      </div>
+
+      <table id="borrowedTable">
+        <thead>
+          <tr>
+            <th>Borrow ID</th>
+            <th>Book ID</th>
+            <th>Book Name</th>
+            <th>Borrowed By</th>
+            <th>Borrow Date</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="manager.js"></script>
+</body>
+</html>
