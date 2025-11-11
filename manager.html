@@ -1,27 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Library Manager Dashboard</title>
   <link rel="stylesheet" href="manager.css">
 </head>
 <body>
   <header>
-    <button class="back-btn" onclick="window.location.href='index.html'"><p class="font2">Back</p></button>
-    <h1 class="font1">📚 Library Manager Dashboard</h1>
+    <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+    <h1>📚 Library Manager Dashboard</h1>
   </header>
 
   <nav class="tab-bar">
-    <button class="tab-button active" onclick="showSection('available')">Available Books</button>
-    <button class="tab-button" onclick="showSection('borrowed')">Borrowed Books</button>
+    <button class="tab-button active" onclick="showSection('available', event)">Available Books</button>
+    <button class="tab-button" onclick="showSection('borrowed', event)">Borrowed Books</button>
   </nav>
 
   <main>
+    <!-- Available Books Section -->
     <section id="available" class="tab-section">
       <div class="section-header">
         <h2>Available Books</h2>
         <input type="text" id="searchBook" placeholder="Search by book name or author" onkeyup="searchBooks()">
       </div>
 
-      <div id="addBookForm" class="form-container hidden">
+      <div id="addBookForm" class="form-container">
         <input type="text" id="bookName" placeholder="Book Name">
         <input type="text" id="bookAuthor" placeholder="Author">
         <input type="text" id="bookGenre" placeholder="Genre">
@@ -46,6 +50,7 @@
       </table>
     </section>
 
+    <!-- Borrowed Books Section -->
     <section id="borrowed" class="tab-section hidden">
       <div class="section-header">
         <h2>Borrowed Books</h2>
@@ -69,6 +74,7 @@
       </table>
     </section>
   </main>
+
   <script src="manager.js"></script>
 </body>
 </html>
