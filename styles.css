@@ -1,51 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 body {
   margin: 0;
-  height: 100vh;              
+  height: 100vh;
   display: flex;
-  justify-content: center;    
-  align-items: center;    
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #009688, #004D40);
+  font-family: 'Poppins', sans-serif;
+  color: #333;
 }
+
 .flex-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px; 
-  padding: 20px;
+  gap: 40px;
+  padding: 40px;
 }
 
-.grid {
-    display: grid;
-    grid-template-rows: auto auto auto; 
-    justify-items: center;             
-    align-items: center;               
-    text-align: center;
-    grid-template-rows: auto auto auto;
-}
 .box {
-  width: 40vw;                
-  max-width: 400px;           
-  min-width: 250px;           
-  aspect-ratio: 1 / 1;        
-  border: 3px solid black;
-  border-radius: 12px;
-  background-color: white;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  display: grid;
-  place-items: center;
-  padding: 15px;
+  width: 320px;
+  height: 350px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  text-align: center;
+  padding: 30px 20px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
 }
 
 .box:hover {
-  transform: scale(1.05);
-  background-color: #e8f0fe;
+  transform: translateY(-10px);
+  box-shadow: 0 20px 30px rgba(0, 150, 136, 0.3);
 }
+
 .box-img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;    
-  image-rendering: auto;  
-  border-radius: 8px;     
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  transition: transform 0.4s ease;
 }
 
+.box:hover .box-img {
+  transform: scale(1.1);
+}
 
+h2 {
+  color: #00695C;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
 
+p {
+  font-size: 14px;
+  color: #555;
+}
+
+@media (max-width: 600px) {
+  .box {
+    width: 85%;
+    height: auto;
+  }
+}
