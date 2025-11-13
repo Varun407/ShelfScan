@@ -1,1 +1,263 @@
-<h1>welcome student</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --nav-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding-top: 80px;
+      animation: fadeIn 0.8s ease-in;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes glow { from { filter: drop-shadow(0 0 5px rgba(102, 126, 234, 0.5)); } to { filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8)); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    .nav {
+      position: fixed; top: 0; width: 100%; background: var(--nav-bg); color: white;
+      padding: 18px 30px; display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); z-index: 1000; backdrop-filter: blur(10px);
+      animation: slideDown 0.5s ease-out;
+    }
+    .logo {
+      font-size: 24px; font-weight: 700; background: var(--primary);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .profile-box {
+      background: rgba(255, 255, 255, 0.1); padding: 10px 18px; border-radius: 50px;
+      font-weight: 500; border: 2px solid rgba(255, 255, 255, 0.2); transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .profile-box:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+    .logout-btn-nav {
+      background: var(--secondary); border: none; color: white; font-weight: 600;
+      padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4); display: flex; align-items: center; gap: 8px;
+    }
+    .logout-btn-nav:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6); }
+    .container { max-width: 1400px; margin: 30px auto; padding: 0 20px; }
+    .search-bar {
+      display: flex; align-items: center; background: white; padding: 16px 24px;
+      border-radius: 50px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); margin-bottom: 35px;
+      transition: all 0.3s ease; animation: slideUp 0.6s ease-out 0.2s both;
+    }
+    .search-bar:focus-within { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
+    .search-bar i { color: #667eea; font-size: 20px; margin-right: 12px; transition: transform 0.3s ease; }
+    .search-bar:focus-within i { transform: rotate(15deg) scale(1.1); }
+    .search-bar input { width: 100%; border: none; outline: none; font-size: 16px; font-family: 'Poppins', sans-serif; }
+    .book-grid-container { margin-bottom: 50px; }
+    .book-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px;
+    }
+    .book-card {
+      border-radius: 20px; padding: 20px 15px; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease; cursor: pointer; color: white; position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(20px);
+      aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .book-card::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+    .book-card:hover::before { left: 100%; }
+    .book-card:nth-child(1) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .book-card:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .book-card:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .book-card:nth-child(4) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .book-card:nth-child(5) { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .book-card:nth-child(6) { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+    .book-card:nth-child(7) { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+    .book-card:nth-child(8) { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+    .book-card:nth-child(9) { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+    .book-card:nth-child(10) { background: linear-gradient(135deg, #ff8a80 0%, #ea4c89 100%); }
+    .book-card:nth-child(n+11) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .book-card:hover { transform: translateY(-10px) rotate(2deg) scale(1.03); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
+    .book-card i { font-size: 42px; margin-bottom: 12px; display: block; transition: all 0.3s ease; }
+    .book-card:hover i { transform: scale(1.2) rotate(10deg); }
+    .book-card h3 { margin: 10px 0 6px; font-size: 16px; font-weight: 600; line-height: 1.3; }
+    .book-card p { font-size: 13px; opacity: 0.9; line-height: 1.2; }
+    .section-title {
+      font-size: 26px; font-weight: 700; margin-bottom: 20px; display: flex;
+      align-items: center; gap: 12px; color: #2c3e50; animation: slideUp 0.6s ease-out 0.6s both;
+    }
+    .section-title i {
+      background: var(--primary); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    table {
+      width: 100%; background: white; border-collapse: collapse; border-radius: 15px;
+      overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.6s ease-out 0.8s both;
+    }
+    thead { background: var(--primary); }
+    th { color: white; padding: 18px 20px; text-align: left; font-weight: 600; text-transform: uppercase; }
+    tbody tr { transition: all 0.3s ease; border-bottom: 1px solid #f0f0f0; }
+    tbody tr:hover { background: rgba(102, 126, 234, 0.05); transform: scale(1.01); }
+    td { padding: 18px 20px; color: #333; }
+    .status-badge {
+      display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 14px;
+      font-weight: 500; background: rgba(255, 193, 7, 0.2); color: #f57c00;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    ::-webkit-scrollbar { width: 10px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
+    @media (max-width: 1200px) {
+      .book-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; }
+      .book-card i { font-size: 38px; margin-bottom: 10px; }
+      .book-card h3 { font-size: 15px; margin: 8px 0 5px; }
+      .book-card p { font-size: 12px; }
+    }
+    @media (max-width: 768px) {
+      body { padding-top: 120px; }
+      .nav { padding: 15px 20px; flex-wrap: wrap; height: auto; min-height: 100px; }
+      .logo { font-size: 20px; }
+      .nav-right { width: 100%; justify-content: space-between; margin-top: 10px; }
+      .book-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+      .book-card { padding: 15px 10px; }
+      .book-card i { font-size: 32px; margin-bottom: 8px; }
+      .book-card h3 { font-size: 14px; margin: 6px 0 4px; }
+      .book-card p { font-size: 11px; }
+      .section-title { font-size: 22px; }
+      th, td { padding: 12px 15px; font-size: 14px; }
+    }
+    @media (max-width: 480px) {
+      body { padding-top: 160px; }
+      .nav { flex-direction: column; gap: 15px; min-height: 140px; }
+      .nav-right { flex-direction: column; width: 100%; gap: 10px; }
+      .logout-btn-nav, .profile-box { width: 100%; justify-content: center; }
+      .book-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+      .book-card { padding: 12px 8px; }
+      .book-card i { font-size: 28px; margin-bottom: 6px; }
+      .book-card h3 { font-size: 13px; margin: 5px 0 3px; }
+      .book-card p { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">📚 Library Dashboard</div>
+    <div class="nav-right">
+      <div class="profile-box">👩 Alice Smith</div>
+      <button class="logout-btn-nav" onclick="handleLogout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Log out
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="search-bar">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search books..." onkeyup="filterBooks()">
+    </div>
+
+    <div class="book-grid-container">
+      <div class="book-grid" id="bookGrid">
+        <div class="book-card" data-title="1984" data-author="George Orwell">
+          <i class="fa-solid fa-book"></i><h3>1984</h3><p>George Orwell</p>
+        </div>
+        <div class="book-card" data-title="To Kill a Mockingbird" data-author="Harper Lee">
+          <i class="fa-solid fa-book"></i><h3>To Kill a Mockingbird</h3><p>Harper Lee</p>
+        </div>
+        <div class="book-card" data-title="Brave New World" data-author="Aldous Huxley">
+          <i class="fa-solid fa-book"></i><h3>Brave New World</h3><p>Aldous Huxley</p>
+        </div>
+        <div class="book-card" data-title="The Hobbit" data-author="J.R.R. Tolkien">
+          <i class="fa-solid fa-book"></i><h3>The Hobbit</h3><p>J.R.R. Tolkien</p>
+        </div>
+        <div class="book-card" data-title="Pride and Prejudice" data-author="Jane Austen">
+          <i class="fa-solid fa-book"></i><h3>Pride and Prejudice</h3><p>Jane Austen</p>
+        </div>
+        <div class="book-card" data-title="The Great Gatsby" data-author="F. Scott Fitzgerald">
+          <i class="fa-solid fa-book"></i><h3>The Great Gatsby</h3><p>F. Scott Fitzgerald</p>
+        </div>
+        <div class="book-card" data-title="Moby Dick" data-author="Herman Melville">
+          <i class="fa-solid fa-book"></i><h3>Moby Dick</h3><p>Herman Melville</p>
+        </div>
+        <div class="book-card" data-title="War and Peace" data-author="Leo Tolstoy">
+          <i class="fa-solid fa-book"></i><h3>War and Peace</h3><p>Leo Tolstoy</p>
+        </div>
+        <div class="book-card" data-title="The Catcher in the Rye" data-author="J.D. Salinger">
+          <i class="fa-solid fa-book"></i><h3>The Catcher in the Rye</h3><p>J.D. Salinger</p>
+        </div>
+        <div class="book-card" data-title="Lord of the Flies" data-author="William Golding">
+          <i class="fa-solid fa-book"></i><h3>Lord of the Flies</h3><p>William Golding</p>
+        </div>
+        <div class="book-card" data-title="Animal Farm" data-author="George Orwell">
+          <i class="fa-solid fa-book"></i><h3>Animal Farm</h3><p>George Orwell</p>
+        </div>
+        <div class="book-card" data-title="The Odyssey" data-author="Homer">
+          <i class="fa-solid fa-book"></i><h3>The Odyssey</h3><p>Homer</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <i class="fa-solid fa-clipboard-list"></i> My Borrowed Books
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Title</th><th>Author</th><th>Due Date</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1984</strong></td><td>George Orwell</td><td>Nov 8</td>
+          <td><span class="status-badge">⏳ Pending</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function handleLogout() { if (confirm('Are you sure you want to logout?')) console.log('Logging out...'); }
+    function filterBooks() {
+      const filter = document.getElementById('searchInput').value.toLowerCase();
+      document.querySelectorAll('.book-card').forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        const author = card.getAttribute('data-author').toLowerCase();
+        card.style.display = (title.includes(filter) || author.includes(filter)) ? 'block' : 'none';
+      });
+    }
+    document.querySelectorAll('.book-card').forEach(card => {
+      card.addEventListener('click', function() {
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => this.style.transform = '', 200);
+      });
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.book-card').forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
